@@ -19,10 +19,10 @@ brew install --cask font-braille-spinner-kitty-term
 
 ## Available casks
 
-| Cask | Font | Status |
-| --- | --- | --- |
-| `font-braille-spinner-kitty-term` | Braille Spinner Kitty Term | Available |
-| `font-iosevka-term-slab-ss17` | Iosevka Term Slab SS17 | Pending first release |
+| Cask | Font |
+| --- | --- |
+| `font-braille-spinner-kitty-term` | Braille Spinner Kitty Term |
+| `font-iosevka-term-slab-ss17` | Iosevka Term Slab SS17 |
 
 ## Builds and releases
 
