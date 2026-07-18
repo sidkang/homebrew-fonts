@@ -5,7 +5,7 @@ cask "font-braille-spinner-kitty-term" do
   url "https://github.com/sidkang/fonts/releases/download/braille-spinner-kitty-term-v#{version}/BrailleSpinnerKittyTerm-#{version}.zip"
   name "Braille Spinner Kitty Term"
   desc "Fixed-grid private-use Braille spinner glyphs for Kitty terminals"
-  homepage "https://github.com/sidkang/fonts/tree/master/fonts/braille-spinner-kitty-term"
+  homepage "https://github.com/sidkang/homebrew-fonts/tree/master/fonts/braille-spinner-kitty-term"
 
   font "BrailleSpinnerKittyTerm-Regular.ttf"
 end
