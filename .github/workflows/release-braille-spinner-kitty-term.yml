@@ -1,7 +1,9 @@
 name: Release Braille Spinner Kitty Term
 
 on:
-  workflow_dispatch:
+  push:
+    tags:
+      - braille-spinner-kitty-term-v*
 
 permissions:
   contents: read
@@ -12,8 +14,7 @@ concurrency:
 
 jobs:
   build:
-    # A dispatch against another ref cannot execute release code or receive write permissions.
-    if: github.repository == 'sidkang/homebrew-fonts' && github.ref == 'refs/heads/master'
+    if: github.repository == 'sidkang/homebrew-fonts'
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     outputs:
@@ -29,8 +30,12 @@ jobs:
           version: 0.11.28
           enable-cache: false
       - id: version
-        name: Read module version
-        run: echo "value=$(uv run fonts/braille-spinner-kitty-term/build.py --version)" >> "$GITHUB_OUTPUT"
+        name: Validate version tag
+        run: |
+          set -euo pipefail
+          version=$(uv run fonts/braille-spinner-kitty-term/build.py --version)
+          test "$GITHUB_REF_NAME" = "braille-spinner-kitty-term-v$version"
+          echo "value=$version" >> "$GITHUB_OUTPUT"
       - name: Build and verify
         run: fonts/braille-spinner-kitty-term/build.sh
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
@@ -58,12 +63,39 @@ jobs:
         run: |
           set -euo pipefail
           tag="braille-spinner-kitty-term-v${RELEASE_VERSION}"
-          if gh release view "$tag" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
-            echo "Release already exists: $tag" >&2
-            exit 1
+          if ! gh release view "$tag" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release create "$tag" release/BrailleSpinnerKittyTerm-"${RELEASE_VERSION}".zip \
+              --repo "$GITHUB_REPOSITORY" \
+              --target "$RELEASE_TARGET" \
+              --title "Braille Spinner Kitty Term ${RELEASE_VERSION}" \
+              --generate-notes
           fi
-          gh release create "$tag" release/BrailleSpinnerKittyTerm-"${RELEASE_VERSION}".zip \
-            --repo "$GITHUB_REPOSITORY" \
-            --target "$RELEASE_TARGET" \
-            --title "Braille Spinner Kitty Term ${RELEASE_VERSION}" \
-            --generate-notes
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+        with:
+          ref: master
+          persist-credentials: true
+          fetch-depth: 1
+      - name: Update Homebrew cask
+        env:
+          RELEASE_VERSION: ${{ needs.build.outputs.version }}
+        run: |
+          set -euo pipefail
+          sha256=$(sha256sum "release/BrailleSpinnerKittyTerm-${RELEASE_VERSION}.zip" | awk '{print $1}')
+          cat > Casks/font-braille-spinner-kitty-term.rb <<EOF
+          cask "font-braille-spinner-kitty-term" do
+            version "${RELEASE_VERSION}"
+            sha256 "${sha256}"
+
+            url "https://github.com/sidkang/homebrew-fonts/releases/download/braille-spinner-kitty-term-v${RELEASE_VERSION}/BrailleSpinnerKittyTerm-${RELEASE_VERSION}.zip"
+            name "Braille Spinner Kitty Term"
+            desc "Fixed-grid private-use Braille spinner glyphs for Kitty terminals"
+            homepage "https://github.com/sidkang/homebrew-fonts/tree/master/fonts/braille-spinner-kitty-term"
+
+            font "BrailleSpinnerKittyTerm-Regular.ttf"
+          end
+          EOF
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add Casks/font-braille-spinner-kitty-term.rb
+          git diff --cached --quiet || git commit -m "chore(cask): release Braille Spinner Kitty Term ${RELEASE_VERSION}"
+          git push origin HEAD:master

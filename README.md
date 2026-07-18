@@ -28,7 +28,14 @@ brew install --cask font-braille-spinner-kitty-term
 
 GitHub Actions is the only supported build path. Each font module owns its build implementation, verifier, installer for downloaded artifacts, font license, and documentation.
 
-A verified versioned release is the source for its cask asset and SHA-256. Do not point casks at ephemeral CI artifacts.
+A version tag is the release signal. Pushing one automatically builds, verifies, creates the GitHub Release, computes the asset SHA-256, and updates the matching cask:
+
+```text
+braille-spinner-kitty-term-v1.0.2
+iosevka-term-slab-ss17-v34.7.1
+```
+
+Normal pushes to `master` only verify; they do not release. A cask always points at an immutable release asset, never an ephemeral CI artifact.
 
 ## Repository layout
 
