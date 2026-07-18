@@ -53,7 +53,7 @@ Output:
 
 ```text
 dist/braille-spinner-kitty-term/BrailleSpinnerKittyTerm-Regular.ttf
-dist/releases/BrailleSpinnerKittyTerm-1.0.1.zip
+dist/releases/BrailleSpinnerKittyTerm-1.0.2.zip
 ```
 
 ## Install on macOS

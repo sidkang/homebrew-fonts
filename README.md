@@ -1,6 +1,6 @@
 # Fonts
 
-Personal font source, verified GitHub releases, and Homebrew casks in one repository. The tap remains available as `sidkang/fonts` because Homebrew maps that name to this `homebrew-fonts` repository.
+Personal font source, verified GitHub releases, and Homebrew casks in one repository. The tap remains available as `sidkang/fonts` because Homebrew maps that name to this `homebrew-fonts` repository. User-visible release changes are recorded in [`CHANGELOG.md`](CHANGELOG.md).
 
 ## Install
 

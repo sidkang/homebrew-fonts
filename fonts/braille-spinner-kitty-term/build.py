@@ -16,7 +16,7 @@ from fontTools.ttLib import TTFont
 
 FAMILY = "Braille Spinner Kitty Term"
 POSTSCRIPT_NAME = "BrailleSpinnerKittyTerm-Regular"
-VERSION = "1.0.1"
+VERSION = "1.0.2"
 UNITS_PER_EM = 1000
 ADVANCE_WIDTH = 500
 ASCENDER = 965
