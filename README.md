@@ -1,10 +1,16 @@
-# Fonts
+# Fonts and Tools
 
-Personal font source, verified GitHub releases, and Homebrew casks in one repository. The tap remains available as `sidkang/fonts` because Homebrew maps that name to this `homebrew-fonts` repository. User-visible release changes are recorded in [`CHANGELOG.md`](CHANGELOG.md).
+Personal font source, verified GitHub releases, and a Homebrew tap for formulae and casks in one repository. The tap remains available as `sidkang/fonts` because Homebrew maps that name to this `homebrew-fonts` repository. User-visible release changes are recorded in [`CHANGELOG.md`](CHANGELOG.md).
 
 ## Install
 
-Install a released font directly:
+Formulae will be installed directly once published:
+
+```bash
+brew install sidkang/fonts/<formula>
+```
+
+Install a released font cask directly:
 
 ```bash
 brew install --cask sidkang/fonts/font-braille-spinner-kitty-term
@@ -16,6 +22,10 @@ Or add the tap first:
 brew tap sidkang/fonts
 brew install --cask font-braille-spinner-kitty-term
 ```
+
+## Available formulae
+
+None yet. `Formula/` is reserved for released non-font command-line tools.
 
 ## Available casks
 
@@ -35,12 +45,13 @@ braille-spinner-kitty-term-v1.0.2
 iosevka-term-slab-ss17-v34.7.1
 ```
 
-Normal pushes to `master` only verify; they do not release. A cask always points at an immutable release asset, never an ephemeral CI artifact.
+Normal pushes to `master` only verify; they do not release. A cask always points at an immutable release asset, never an ephemeral CI artifact. Formulae use immutable, versioned source or release archives with a SHA-256.
 
 ## Repository layout
 
 ```text
-Casks/                  # Homebrew casks
+Formula/                # Homebrew formulae for non-font command-line tools
+Casks/                  # Homebrew casks, including fonts
 fonts/<module>/
 ├── README.md           # font use and installation documentation
 ├── OFL.txt             # font license

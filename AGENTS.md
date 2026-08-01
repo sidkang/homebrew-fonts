@@ -1,11 +1,13 @@
 # Repository scope
 
-This repository is the source, release, and Homebrew tap for personal fonts.
+This repository is the source, release, and Homebrew tap for personal fonts and tools.
 
 ## Layout
 
 - Font modules live in `fonts/<font-slug>/` and own their build implementation, verification, installer, public documentation, and font license.
+- Homebrew formulae live in `Formula/`, package non-font command-line tools, and own their build, release, and verification.
 - Homebrew casks live in `Casks/` and their names MUST start with `font-`.
+- Formulae MUST NOT reuse a cask name or shadow a formula in `homebrew/core`.
 - Root documentation and workflows apply across modules. Do not add root build/install dispatchers or a central module registry.
 
 ## Build and release
@@ -14,8 +16,9 @@ This repository is the source, release, and Homebrew tap for personal fonts.
 - Use `uv` and inline Python script metadata; do not add a repository-wide virtual environment.
 - Every build MUST verify family names, codepoints, advances, and font validity before packaging.
 - Release archives MUST include the font file, its module README, and its font license.
+- Formulae MUST reference immutable, versioned source or release archives and include their SHA-256.
 - Casks MUST reference immutable versioned GitHub release assets in this repository. Generate their SHA-256 from the published asset.
-- Test cask changes with `brew style` and `brew audit --cask` before publishing.
+- Test formula and cask changes with `brew style` and the corresponding `brew audit` mode before publishing.
 
 ## Licenses
 
