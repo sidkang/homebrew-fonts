@@ -11,8 +11,9 @@ class Clipi < Formula
       url "https://git.882816.xyz/sid/clipi/releases/download/v#{version}/clipi-#{version}-darwin-arm64.tar.gz"
       sha256 "5c070448b4822684d4bcddd60de1a91fa163c6b37971f55190f217777a7255ca"
 
+      v = version
       resource "chrome_extension" do
-        url "https://git.882816.xyz/sid/clipi/releases/download/v#{version}/clipi-extension-chrome-mv3-#{version}.zip"
+        url "https://git.882816.xyz/sid/clipi/releases/download/v#{v}/clipi-extension-chrome-mv3-#{v}.zip"
         sha256 "09315759bce0447b187ece0246b87357654f7f3e1513848f06af4bee62df028e"
       end
     end
