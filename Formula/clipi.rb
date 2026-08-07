@@ -3,8 +3,8 @@ class Clipi < Formula
   homepage "https://git.882816.xyz/sid/clipi"
   version "0.5.1"
 
-  depends_on :macos
   depends_on arch: :arm64
+  depends_on :macos
 
   on_macos do
     on_arm do
