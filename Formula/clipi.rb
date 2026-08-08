@@ -1,7 +1,7 @@
 class Clipi < Formula
   desc "Local-only MCP browser service with a Chrome Extension bridge"
   homepage "https://git.882816.xyz/sid/clipi"
-  version "0.5.1"
+  version "0.5.3"
 
   depends_on arch: :arm64
   depends_on :macos
@@ -9,12 +9,12 @@ class Clipi < Formula
   on_macos do
     on_arm do
       url "https://git.882816.xyz/sid/clipi/releases/download/v#{version}/clipi-#{version}-darwin-arm64.tar.gz"
-      sha256 "5c070448b4822684d4bcddd60de1a91fa163c6b37971f55190f217777a7255ca"
+      sha256 "94f96c722fc65a891f8c42057b6b2f977e96f6809422d94967ed79326880a7e6"
 
       v = version
       resource "chrome_extension" do
         url "https://git.882816.xyz/sid/clipi/releases/download/v#{v}/clipi-extension-chrome-mv3-#{v}.zip"
-        sha256 "09315759bce0447b187ece0246b87357654f7f3e1513848f06af4bee62df028e"
+        sha256 "1efdb28dbc5324d6adb607df210039f089e8222e8a0e5957981e9f1c32c39082"
       end
     end
   end
